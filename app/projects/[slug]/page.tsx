@@ -38,7 +38,7 @@ export default async function ProjectPage({
   const others = projects.filter((x) => x.slug !== slug).slice(0, 2);
 
   return (
-    <main className="mx-auto max-w-5xl px-5 pt-28 pb-20">
+    <main className="mx-auto max-w-6xl px-5 pt-28 pb-20">
       <Link
         href="/#work"
         className="mb-6 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-cream px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase shadow-[3px_3px_0_#0d1b2a] transition hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_#0d1b2a]"

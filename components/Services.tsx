@@ -65,7 +65,7 @@ const fadeUp = {
 
 export default function Services() {
   return (
-    <section id="services" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20 md:py-28">
+    <section id="services" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-20 md:py-28">
       <SectionHeading
         index="02"
         title={<>One dev, <span className="text-ember">the whole loop</span></>}

@@ -39,7 +39,7 @@ export default function MobileShowcase() {
 
   return (
     <section id="apps" ref={ref} className="scroll-mt-24 border-y-2 border-ink bg-moss text-cream">
-      <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-5 py-20 md:py-28">
         <Reveal>
           <div className="mb-4 flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] text-sun uppercase">
             <span className="inline-block h-px w-10 bg-sun" />

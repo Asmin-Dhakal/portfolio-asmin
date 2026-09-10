@@ -21,7 +21,7 @@ export default function Experience() {
   const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 24 });
 
   return (
-    <section id="story" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20 md:py-28">
+    <section id="story" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-20 md:py-28">
       <SectionHeading
         index="05"
         title={<>The short <span className="text-ember">story</span></>}
