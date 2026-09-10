@@ -10,8 +10,6 @@ export const site = {
   fiverr: "https://www.fiverr.com/asmin_dhakal",
   linkedin: "https://linkedin.com/in/asmin",
   twitter: "https://x.com/asmin_dev",
-  resumeUrl: "/resume.pdf",
-  // Edit these when you have real links — Work cards use per-project links below
 };
 
 export type ProjectLink = { live?: string; github?: string };

@@ -38,10 +38,8 @@ export const IMG = {
   vihaani: "https://www.vihaanievents.com/herosec.jpg",
   cleanflow:
     "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1600&auto=format&fit=crop",
-  sporta:
-    "https://play-lh.googleusercontent.com/yhnCUBBb46HJTPc6GTfn00tCmt0yepqH2Q3UGaetyxIL4ZtYYtE75HzdM9vyk7-Sg3fIOq1IwUPIq0_Pa0URog=w526-h296-rw",
-  unigoApp:
-    "https://play-lh.googleusercontent.com/-aeC_sMI_Zxg0m00EIq9SNOxNZ_9yKVEenYQlsAC2qgd9ofEC5hCSkhNdrBlqk5uiPF7eRboGk-ssZjYZhkuUmk=w526-h296-rw",
+  sporta: "/projects/sporta.png", // your Sporta promo graphic in public/projects/
+  unigoApp: "/projects/unigo.png", // your UNIGO app graphic in public/projects/
   desk: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop",
 };
 
