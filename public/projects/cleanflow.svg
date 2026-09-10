@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#67e8f9"/>
+      <stop offset="1" stop-color="#0284c7"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0v48" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#082f49"/>
+  <rect width="1200" height="630" fill="url(#g)" opacity="0.85"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect x="70" y="90" width="340" height="56" rx="28" fill="#09090b" opacity="0.85"/>
+  <text x="240" y="127" font-family="monospace" font-size="24" fill="#fff" text-anchor="middle">365 MULTI CLEANING • ARUBA</text>
+  <text x="70" y="300" font-family="Arial, sans-serif" font-size="92" font-weight="bold" fill="#fff">CleanFlow</text>
+  <text x="70" y="380" font-family="Arial, sans-serif" font-size="44" font-weight="bold" fill="#fff" opacity="0.75">client + worker app + admin</text>
+  <text x="70" y="445" font-family="monospace" font-size="28" fill="#fff">booking → QR check-in → photo proof</text>
+  <g>
+    <rect x="790" y="120" width="150" height="390" rx="30" fill="#09090b"/>
+    <rect x="804" y="150" width="122" height="90" rx="14" fill="url(#g)"/>
+    <rect x="804" y="252" width="122" height="16" rx="8" fill="#fff" opacity="0.6"/>
+    <rect x="804" y="276" width="90" height="16" rx="8" fill="#fff" opacity="0.35"/>
+    <rect x="804" y="330" width="122" height="120" rx="14" fill="#fff" opacity="0.92"/>
+    <rect x="960" y="120" width="150" height="390" rx="30" fill="#fff"/>
+    <rect x="974" y="150" width="122" height="60" rx="14" fill="#082f49"/>
+    <rect x="974" y="222" width="122" height="16" rx="8" fill="#082f49" opacity="0.5"/>
+    <rect x="974" y="300" width="122" height="120" rx="14" fill="url(#g)"/>
+  </g>
+</svg>
