@@ -20,7 +20,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="border-b-2 border-ink bg-paper/90 backdrop-blur-md">
-        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
           <a href="#top" className="flex items-center gap-2.5">
             <span className="grid size-9 -rotate-3 place-items-center rounded-md border-2 border-ink bg-sun font-display text-xl text-ink shadow-[2px_2px_0_#0d1b2a]">
               A
