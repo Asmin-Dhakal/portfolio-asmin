@@ -1,97 +1,185 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Terminal, Check, Container, Cloud, GitBranch, ShieldCheck } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { GitBranch, Container, Rocket, Radar, Terminal } from "lucide-react";
 import { Reveal, SectionHeading } from "./ui";
 
-const lines = [
-  "$ git push origin main",
-  "✓ tests passed (42/42)",
-  "→ docker build -t app:latest .",
-  "→ pushing to registry...",
-  "✓ deployed to prod in 47s",
-  "✓ SSL renewed • uptime 99.99%",
-];
+const DURATION = 2600;
 
 const steps = [
-  { icon: GitBranch, t: "Push", d: "Tests run on every push" },
-  { icon: Container, t: "Build", d: "Docker image + scan" },
-  { icon: Cloud, t: "Deploy", d: "Zero-downtime release" },
-  { icon: ShieldCheck, t: "Watch", d: "Logs, alerts, backups" },
+  {
+    icon: GitBranch,
+    code: "01",
+    title: "Push",
+    desc: "Tests run on every push. Nothing broken ever leaves the laptop.",
+    log: ["$ git push origin main", "✓ 42/42 tests passed", "→ bundle 212kb, 0 errors"],
+  },
+  {
+    icon: Container,
+    code: "02",
+    title: "Build",
+    desc: "A Docker image is baked, scanned and tagged. Same artifact, everywhere.",
+    log: ["→ docker build -t app:1.4.2", "✓ vuln scan clean", "→ pushed to registry"],
+  },
+  {
+    icon: Rocket,
+    code: "03",
+    title: "Deploy",
+    desc: "Zero-downtime release. Users never notice — except things get faster.",
+    log: ["→ rolling update: 3/3", "✓ health checks green", "✓ live in 47s"],
+  },
+  {
+    icon: Radar,
+    code: "04",
+    title: "Watch",
+    desc: "Logs, alerts, SSL renewals and nightly backups. Sleep through the night.",
+    log: ["✓ uptime 99.99%", "✓ SSL auto-renewed", "✓ backup 02:00 done"],
+  },
 ];
 
 export default function Deploy() {
-  const [text, setText] = useState("");
-  const [lineIdx, setLineIdx] = useState(0);
+  const [active, setActive] = useState(0);
+  const [cycle, setCycle] = useState(0);
+  const secRef = useRef<HTMLElement>(null);
+  const inView = useInView(secRef, { amount: 0.35 });
+
+  // loop runs only while the section is on screen; re-entering restarts at Push
+  useEffect(() => {
+    if (inView) {
+      setActive(0);
+      setCycle((c) => c + 1);
+    }
+  }, [inView]);
 
   useEffect(() => {
-    const full = lines[lineIdx % lines.length];
-    let i = 0;
-    setText("");
+    if (!inView) return;
     const id = setInterval(() => {
-      i++;
-      setText(full.slice(0, i));
-      if (i >= full.length) {
-        clearInterval(id);
-        setTimeout(() => setLineIdx((v) => v + 1), 1300);
-      }
-    }, 30);
+      setActive((a) => (a + 1) % steps.length);
+      setCycle((c) => c + 1);
+    }, DURATION);
     return () => clearInterval(id);
-  }, [lineIdx]);
+  }, [inView, cycle]);
+
+  const step = steps[active];
+  const pick = (i: number) => {
+    setActive(i);
+    setCycle((c) => c + 1);
+  };
 
   return (
-    <section id="deploy" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20 md:py-28">
+    <section id="deploy" ref={secRef} className="mx-auto max-w-7xl scroll-mt-24 px-5 py-20 md:py-28">
       <SectionHeading
         index="04"
         font="punch"
         title={<>You get a live URL, not a zip file</>}
-        desc="Docker, CI/CD, SSL, domains, backups — the unglamorous half that keeps you in business."
+        desc="Docker, CI/CD, SSL, domains, backups — the unglamorous half that keeps you in business. Watch a release happen:"
       />
-      <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+
+      <div className="grid items-start gap-5 lg:grid-cols-[1fr_300px]">
+        {/* stage display */}
         <Reveal>
-          <div className="tape relative overflow-hidden rounded-xl border-2 border-ink bg-ink text-cream shadow-[6px_6px_0_#0d1b2a]">
-            <div className="flex items-center gap-2 border-b border-cream/15 px-4 py-3">
-              <span className="size-3 rounded-full bg-ember" />
-              <span className="size-3 rounded-full bg-sun" />
-              <span className="size-3 rounded-full bg-emerald-400" />
-              <span className="ml-2 flex items-center gap-1.5 font-mono text-xs text-cream/60">
-                <Terminal className="size-3.5" /> ship-it — zsh
-              </span>
-            </div>
-            <div className="h-60 space-y-2 overflow-hidden p-5 font-mono text-sm">
-              {lines.slice(Math.max(0, (lineIdx % lines.length) - 4), lineIdx % lines.length || 6).map((l, i) => (
-                <div key={`${lineIdx}-${i}`} className="text-cream/40">
-                  {l}
+          <div className="relative overflow-hidden rounded-2xl border-2 border-ink bg-ink p-6 text-cream shadow-[6px_6px_0_#0d1b2a] md:p-8">
+          <div className="pointer-events-none absolute -top-8 right-2 font-display text-[10rem] leading-none text-cream/10 select-none md:text-[13rem]">
+            {step.code}
+          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={step.code}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+              className="relative"
+            >
+              <div className="flex items-center gap-3">
+                <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-sun text-ink">
+                  <step.icon className="size-6" />
+                </span>
+                <div>
+                  <div className="font-mono text-[11px] tracking-[0.25em] text-sun uppercase">
+                    Stage {step.code} / 04
+                  </div>
+                  <div className="font-cond text-4xl tracking-wide uppercase md:text-5xl">
+                    {step.title}
+                  </div>
                 </div>
-              ))}
-              <div className="text-sun">
-                {text}
-                <span className="ml-1 inline-block h-4 w-2 animate-pulse bg-sun align-middle" />
+                {active === steps.length - 1 && (
+                  <motion.span
+                    initial={{ scale: 0, rotate: -12 }}
+                    animate={{ scale: 1, rotate: -6 }}
+                    className="ml-auto hidden rounded-md bg-emerald-400 px-3 py-1.5 font-mono text-xs font-bold tracking-widest text-ink sm:inline"
+                  >
+                    ● LIVE
+                  </motion.span>
+                )}
               </div>
-            </div>
+              <p className="mt-4 max-w-lg leading-7 text-cream/75">{step.desc}</p>
+              <div className="mt-5 min-h-[7.5rem] rounded-xl border border-cream/15 bg-black/40 p-4 font-mono text-[12px] leading-6 md:text-sm">
+                <div className="mb-2 flex items-center gap-1.5 text-cream/40">
+                  <Terminal className="size-3.5" /> ship-it — live log
+                </div>
+                {step.log.map((l, i) => (
+                  <motion.div
+                    key={`${step.code}-${i}-${cycle}`}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.15 + i * 0.22 }}
+                    className={l.startsWith("✓") ? "text-emerald-300" : "text-cream/80"}
+                  >
+                    {l}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+          {/* loop progress */}
+          <div className="mt-4 h-1 overflow-hidden rounded-full bg-cream/10">
+            <motion.div
+              key={cycle}
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: DURATION / 1000, ease: "linear" }}
+              className="h-full bg-sun"
+            />
+          </div>
           </div>
         </Reveal>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-          {steps.map((s, i) => (
-            <Reveal key={s.t} delay={i * 0.06}>
-              <motion.div
-                whileHover={{ rotate: i % 2 ? 1 : -1, scale: 1.02 }}
-                className="h-full rounded-xl border-2 border-ink bg-cream p-5 shadow-[4px_4px_0_#0d1b2a]"
-              >
-                <s.icon className="mb-3 size-6 text-ember" />
-                <div className="font-bold">
-                  <span className="mr-2 font-mono text-xs text-ink-soft">0{i + 1}</span>
-                  {s.t}
-                </div>
-                <div className="mt-1 text-sm text-ink-soft">{s.d}</div>
-                <div className="mt-3 flex items-center gap-1 font-mono text-[11px] font-bold tracking-widest text-moss uppercase">
-                  <Check className="size-3.5" /> automated
-                </div>
-              </motion.div>
-            </Reveal>
-          ))}
+        {/* clickable rail */}
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">
+          {steps.map((s, i) => {
+            const done = i < active;
+            const now = i === active;
+            return (
+              <Reveal key={s.code} delay={i * 0.05}>
+                <button
+                  onClick={() => pick(i)}
+                  className={`flex w-full items-center gap-3 rounded-xl border-2 p-3 text-left transition-all duration-300 lg:p-4 ${
+                    now
+                      ? "border-ink bg-sun/30 shadow-[4px_4px_0_#0d1b2a]"
+                      : done
+                        ? "border-ink bg-cream hover:-translate-y-0.5"
+                        : "border-ink/20 bg-cream/50 opacity-70 hover:opacity-100"
+                  }`}
+                >
+                  <span
+                    className={`grid size-9 shrink-0 place-items-center rounded-lg font-mono text-xs font-bold transition ${
+                      now ? "bg-ember text-cream" : done ? "bg-moss text-cream" : "bg-ink/10 text-ink-soft"
+                    }`}
+                  >
+                    {done ? "✓" : s.code}
+                  </span>
+                  <span>
+                    <span className="block text-sm font-bold">{s.title}</span>
+                    <span className="font-mono text-[10px] tracking-widest text-ink-soft uppercase">
+                      {now ? "running…" : done ? "done" : "tap to view"}
+                    </span>
+                  </span>
+                </button>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
 
