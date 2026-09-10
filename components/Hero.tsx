@@ -41,7 +41,7 @@ export default function Hero() {
     <section id="top" ref={ref} className="relative overflow-hidden pt-16">
       {/* nameplate bar */}
       <div className="border-b-2 border-ink">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2.5 font-mono text-[11px] tracking-[0.2em] uppercase">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-2.5 font-mono text-[11px] tracking-[0.2em] uppercase">
           <span className="flex items-center gap-2">
             <Asterisk className="size-4 text-ember" /> The Shipping News
           </span>
@@ -52,7 +52,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <motion.div style={{ opacity: fade }} className="mx-auto max-w-6xl px-5 pt-10 md:pt-16">
+      <motion.div style={{ opacity: fade }} className="mx-auto max-w-7xl px-5 pt-10 md:pt-16">
         <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:items-end">
           <motion.div style={{ y: yHead }}>
             <motion.p
