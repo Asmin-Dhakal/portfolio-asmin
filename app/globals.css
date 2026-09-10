@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, "Courier New", monospace;
+  --font-punch: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-cond: "Anton", "Arial Narrow", Impact, sans-serif;
+
+  --color-paper: #e0e1dd;
+  --color-cream: #f2f3f1;
+  --color-ink: #0d1b2a;
+  --color-ink-soft: #415a77;
+  --color-ember: #415a77;
+  --color-ember-deep: #1b263b;
+  --color-moss: #1b263b;
+  --color-sun: #778da9;
+  --color-line: #c8d1dc;
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-marquee-fast: marquee 22s linear infinite;
+  --animate-spin-slower: spin 16s linear infinite;
+  --animate-wiggle: wiggle 2.4s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body, a, button, [role="button"] {
+    cursor: none;
+  }
+}
+
+/* paper grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--color-ember);
+  color: var(--color-cream);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink);
+  border-radius: 8px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.font-punch {
+  font-family: var(--font-punch);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.font-cond {
+  font-family: var(--font-cond);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.rule-double {
+  border-top: 1px solid var(--color-ink);
+  box-shadow: 0 3px 0 -2px var(--color-paper), 0 4px 0 -1px var(--color-ink);
+}
+
+.tape::before,
+.tape::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  width: 84px;
+  height: 26px;
+  background: rgb(119 141 169 / 0.8);
+  border-left: 1px dashed rgb(0 0 0 / 0.15);
+  border-right: 1px dashed rgb(0 0 0 / 0.15);
+  z-index: 2;
+}
+.tape::before {
+  left: 18px;
+  transform: rotate(-6deg);
+}
+.tape::after {
+  right: 18px;
+  transform: rotate(5deg);
+}
+
+.ticket-edge {
+  --notch: var(--color-paper);
+  mask-image: radial-gradient(circle 9px at 0 50%, transparent 98%, black 100%),
+    radial-gradient(circle 9px at 100% 50%, transparent 98%, black 100%);
+  mask-composite: intersect;
+}
