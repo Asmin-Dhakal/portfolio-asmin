@@ -107,14 +107,15 @@ export default function Work() {
   const bar = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   useMotionValueEvent(scrollYProgress, "change", (v) => setPos(v));
 
-  const count = projects.length;
+  const visible = projects.filter((p) => !p.archiveOnly);
+  const count = visible.length;
   const active = Math.min(count - 1, Math.floor(pos * count));
 
   return (
     <section id="work" ref={sectionRef} className="relative scroll-mt-24" style={{ height: "420vh" }}>
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pb-12 md:pb-16">
         {/* header row */}
-        <div className="mx-auto w-full max-w-7xl px-5 pt-28 md:pt-32">
+        <div id="work-head" className="mx-auto w-full max-w-7xl scroll-mt-24 px-5 pt-20 md:pt-24">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <Reveal>
@@ -159,7 +160,7 @@ export default function Work() {
 
         {/* horizontal track */}
         <motion.div ref={trackRef} style={{ x }} className="mt-6 flex w-max gap-5 px-5 md:gap-7 md:px-[8vw]">
-          {projects.map((p, i) => (
+          {visible.map((p, i) => (
             <Panel key={p.slug} slug={p.slug} index={i} total={count} />
           ))}
           {/* end CTA card */}

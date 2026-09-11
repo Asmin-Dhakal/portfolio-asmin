@@ -19,6 +19,10 @@ export type Project = {
   features: { title: string; desc: string }[];
   flow?: string[];
   outcome: string;
+  /** show on /projects archive only, hide from the home journey */
+  archiveOnly?: boolean;
+  /** e.g. "In development" — shown as a badge on the archive card */
+  status?: string;
 };
 
 const PLAY_SPORTA =
@@ -205,6 +209,44 @@ export const projects: Project[] = [
     ],
     outcome:
       "Initial release live — tournament management today, deeper university tooling shipping next.",
+  },
+  {
+    slug: "unigo-b2b-portal",
+    title: "UNIGO B2B Portal — Finland Admissions",
+    short:
+      "Production B2B portal where partner consultancies submit and track student applications to Finnish universities (SAMK, Laurea, Karelia UAS) while UNIGO staff drive each file to offer letter, tuition payment and visa grant.",
+    tagline: "B2B admissions system replacing chat-and-spreadsheet coordination.",
+    tags: ["Next.js 16", "Prisma", "PostgreSQL", "NextAuth", "Resend", "Cloudinary"],
+    category: "web",
+    year: "2026",
+    accent: "from-sky-300 to-blue-500",
+    image: "/projects/b2b-portal.svg",
+    client: "UNIGO Education Experts",
+    location: "Kathmandu, Nepal",
+    role: "Sole designer/developer — architecture, database, all workspaces, UI/UX",
+    platform: ["Partner portal", "Staff console", "Super Admin"],
+    archiveOnly: true,
+    status: "In development",
+    overview: [
+      "A production B2B web portal for UNIGO Education Experts (Nepal) that lets partner consultancies submit and track student applications to Finnish universities of applied sciences — SAMK, Laurea and Karelia UAS — while UNIGO staff process each application from submission through offer letter, tuition payment and visa grant.",
+      "It replaces manual, chat-and-spreadsheet coordination between UNIGO and its partners with a single system of record: applications, documents, task pipelines, status tracking and automated partner emails in one place.",
+    ],
+    features: [
+      { title: "Partner portal", desc: "Dashboard with KPI cards, pipeline visualization, trend charts and needs-attention alerts; student profiles with passport, academic and language documents; bulk applications to intakes; real-time progress; two-way task channel with staff." },
+      { title: "Staff workspace", desc: "Per-application detail with student dossier, task checklists that fire templated emails on completion, pipeline control (Submitted → In Review → On Hold → Completed/Cancelled), document-request composer with instant email, delivery log." },
+      { title: "Super Admin console", desc: "Partner approval, suspend and reactivate lifecycle; full user management with staff creation, suspend and password resets; catalogue management for universities, programs, intakes, forms, checklists and email templates; soft-delete restore; global oversight." },
+      { title: "Finland domain logic", desc: "Joint intakes (1–6 programs per application) vs. separate intakes (1 program), university/program tag compatibility and automatic open/closed/upcoming intake computation." },
+      { title: "Secure platform", desc: "Role-based auth with credentials plus OTP email verification and brute-force lockout; authorized document proxy with per-file access control and original-filename downloads; soft deletes kept as audit proof." },
+    ],
+    flow: [
+      "Partner submits a student application (single or bulk) to an open intake",
+      "Staff review the dossier, request missing documents, track tasks",
+      "Application advances: Submitted → In Review → offer letter secured",
+      "Tuition payment confirmed, visa file prepared and granted",
+      "Templated emails fire automatically at every completion step",
+    ],
+    outcome:
+      "In active development toward production launch, seeded with demo data — admin operations and staff workflows complete. Built iteratively with AI-assisted development.",
   },
 ];
 
