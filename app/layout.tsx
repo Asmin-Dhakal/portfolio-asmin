@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Cursor from "@/components/Cursor";
+import ContactModal from "@/components/ContactModal";
 import { site } from "@/data/site";
 
 const display = Instrument_Serif({
@@ -64,6 +65,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-paper font-sans text-ink antialiased">
         <SmoothScroll />
         <Cursor />
+        <ContactModal />
         <Navbar />
         {children}
       </body>
