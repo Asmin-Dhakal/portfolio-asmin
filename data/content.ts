@@ -250,7 +250,7 @@ export const projects: Project[] = [
   },
   {
     slug: "unigo-eod-tracker",
-    title: "Unigo — Work Tracking & Attendance",
+    title: "Unigo EOD Tracker — Work Tracking & Attendance",
     short:
       "Internal HR platform for a Nepal company: Kathmandu-timezone check-in/lunch/checkout, hourly EOD logging with pause chains, overtime tracking, and Bikram Sambat reports with CSV export.",
     tagline:
