@@ -248,6 +248,125 @@ export const projects: Project[] = [
     outcome:
       "In active development toward production launch, seeded with demo data — admin operations and staff workflows complete. Built iteratively with AI-assisted development.",
   },
+  {
+    slug: "unigo-eod-tracker",
+    title: "Unigo — Work Tracking & Attendance",
+    short:
+      "Internal HR platform for a Nepal company: Kathmandu-timezone check-in/lunch/checkout, hourly EOD logging with pause chains, overtime tracking, and Bikram Sambat reports with CSV export.",
+    tagline:
+      "Full-stack HR productivity platform replacing manual end-of-day reporting with live attendance and hourly task logging.",
+    tags: ["Next.js 16", "Drizzle ORM", "Neon Postgres", "Auth.js", "Bikram Sambat", "Asia/Kathmandu"],
+    category: "web",
+    year: "2026",
+    accent: "from-amber-300 to-orange-400",
+    image: "/projects/eod-tracker.svg",
+    live: "https://unigo-eod.vercel.app/",
+    client: "UNIGO Education Experts — internal HR",
+    location: "Kathmandu, Nepal",
+    role: "Sole designer/developer — architecture, database, all workspaces, UI/UX",
+    platform: ["Employee app", "Live admin dashboard", "BS reports + CSV"],
+    archiveOnly: true,
+    status: "In production — internal",
+    overview: [
+      "Built to replace manual EOD reporting, EOD Tracker digitizes the entire workday from login to checkout. Employees check in, log what they work on every hour, pause for lunch, and check out — all automatically validated for late arrivals, early checkouts, and overtime.",
+      "The system runs entirely on Asia/Kathmandu time and the Bikram Sambat calendar: month/day navigation in BS (Baisakh–Chaitra), BS↔AD conversion for every query, daily hours bar charts with drill-down, and a monthly BS calendar. Five roles — admin / manager / hr / team_lead / employee — are enforced in both UI and API.",
+    ],
+    features: [
+      { title: "Smart attendance state machine", desc: "out → working → on_lunch → working → checked_out with lunch auto-pause/resume of tasks, lunch pause reasons, and mobile check-in (mobile) badges for admins." },
+      { title: "Hourly EOD logging", desc: "In-progress / done / partially_completed entries, pause history, editHistory audit trail, and ↳ continue chains for unfinished work carried forward." },
+      { title: "Overtime & accountability", desc: "Per-employee thresholds (default 10:00 in / 17:00 out), 15-min grace, mandatory late/early reasons, auto overtime = checkout − threshold." },
+      { title: "Bikram Sambat reports", desc: "BS month length calc, BS↔AD conversion, Nepali month-boundary reporting, daily bar charts, one-click drill-down, and BS-labeled CSV export." },
+      { title: "Attendance calendar", desc: "Monthly BS calendar with check-in/lunch/checkout/overtime, holiday highlighting, Saturday dimming, click-to-view entries, admin edit/delete." },
+      { title: "Leave management", desc: "Single/multi-date requests, half-day/sick/casual/annual types, per-date approve/reject/needs_talk with comments, bulk actions, auto-derived partial status." },
+      { title: "Teams & live oversight", desc: "Today Overview (Checked In / On Lunch / Checked Out / Absent) auto-refreshing every 30s, late/early tables, teams with leads, EMP001 IDs, Nepali holidays, meetings & todos." },
+    ],
+    flow: [
+      "Login → Check In (late? reason required)",
+      "Add hourly tasks → Pause/Resume/Complete with notes",
+      "Lunch Start (auto-pauses tasks) → Lunch End (auto-resumes)",
+      "Checkout (early? reason required, overtime auto-calculated)",
+      "Verify in My Reports / Attendance; HR views live dashboard & BS monthly reports",
+    ],
+    outcome:
+      "A timezone-correct, BS-native HR system with 8 tables (22 Drizzle migrations), 12 API groups, concurrent task auto-pause logic, and full audit trails — auditable, concurrent, and built for Nepal from the ground up.",
+  },
+  {
+    slug: "udante-nepal",
+    title: "Udante — Nepal Tours & Travels",
+    short:
+      "Full-viewport Nepal trekking site with interactive trek maps, altitude profiles and Quote/WhatsApp booking — built for conversion and SEO.",
+    tagline:
+      "Premium trekking & tour operator website converting organic search into WhatsApp inquiries — udante.com.np",
+    tags: ["Next.js 16", "Tailwind v4", "Leaflet", "OpenStreetMap", "Framer Motion", "Lenis"],
+    category: "web",
+    year: "2026",
+    accent: "from-cyan-400 to-teal-500",
+    image: "/projects/udante.svg",
+    live: "https://udante.vercel.app/",
+    client: "Udante — Nepal Tours & Travels",
+    location: "Thapagaun, New Baneshwor, Kathmandu — M8RM+FF (udante.com.np)",
+    role: "Designer + Full-Stack Developer — design, build, maps, booking flows, deploy",
+    platform: ["Marketing website", "Trek maps + booking"],
+    archiveOnly: true,
+    overview: [
+      "Udante is a licensed Nepali tour operator website I designed and built from scratch at udante.com.np (Vercel). It showcases 6 flagship packages — Everest Base Camp, Annapurna Circuit, Chitwan Safari and more — with day-by-day itineraries, altitude charts and accurate GeoJSON trek routes, and drives inquiries via a Quote/WhatsApp flow.",
+      "Built mobile-first with Next.js 16 App Router, TypeScript, Tailwind v4, Leaflet + OpenTopoMap/Carto (no API key), Framer Motion and Lenis, and optimized for SEO, Core Web Vitals and conversion. Nepal-specific trust is baked in throughout: NTB Reg/TAAN/NMA/HRA badges, TIMS/ACAP/Sagarmatha permit handling, 1% community pledge and Mar–May / Sep–Nov season logic.",
+    ],
+    features: [
+      { title: "Homepage", desc: "100dvh Ken Burns slideshow (4 Himalayan images, AnimatePresence crossfade), fixed transparent navbar with mega-menu (Tours & Treks → 6 categories), baseline-aligned EBC card (5,364m • 14 days • Strenuous), CustomSelect filters with flip-above logic, cloud-shaped testimonials drifting left (18s, 7s gaps, true SVG cloud), masonry gallery with lightbox." },
+      { title: "Tours", desc: "Filterable /packages (hero + sidebar Category/Difficulty/Budget + sort Price/Rating, 1920w hires cards) and /packages/[slug] with breadcrumbs, sticky quick-facts, day-by-day timeline (Acclimatize badges), gradient altitude chart (700×160, gain pill), and 420px interactive trek map." },
+      { title: "Trek maps", desc: "Accurate 32-point EBC LineString (Lukla 27.686,86.728 → Kala Patthar 28.007,86.83, valley-following) and 9 day-labeled Point waypoints (D2 … ★ EBC) with hover highlight — OSM tiles, no API key, GeoJSON in src/lib/geojson.ts." },
+      { title: "Flows", desc: "Custom Trip Builder 4-step wizard (progress bar, icon cards, radio budget, live preview, POST /api/inquiry), Contact with Google Maps M8RM+FF iframe + hero, About / Blog (featured + TIMS Rs 2,000 pills) / Gallery / FAQ / Legal / sitemap.xml + robots.txt." },
+      { title: "Polish", desc: "Lenis 1.1s expo smooth scroll with scroll-to-top on route change, branded 10px scrollbar (#0e7490→#0a2a3a), dynamic header (transparent→white/95 auto-hide), Next/Image logo (h-12), NTB/TAAN trust bars throughout." },
+      { title: "Challenges solved", desc: "Fixed valley-cutting GeoJSON straight-line bug, overflow-hidden clipping CustomSelect, Lenis + App Router scroll preservation, module not found: lenis on Windows mount (/tmp vs /mnt/d install), and Chitwan 404 Unsplash hires." },
+    ],
+    flow: [
+      "Browse packages → filter by Category/Difficulty/Budget or custom Trip Builder wizard",
+      "Open package → inspect altitude profile, day-by-day timeline and interactive trek map",
+      "Request Quote → WhatsApp inquiry pre-filled with package + dates",
+      "Contact via M8RM+FF map/office or Blog/FAQ for permits & prep",
+    ],
+    outcome:
+      "Lighthouse-ready, 24 static routes (6 packages SSG), Vercel-deployed and CMS-ready (src/lib/data.ts + src/lib/geojson.ts shaped for future Sanity + Prisma admin) — turning Nepal trekking search into WhatsApp conversations.",
+  },
+  {
+    slug: "minons-aruba",
+    title: "Minons — Burger & Grill Aruba",
+    short:
+      "Full-screen restaurant site for Minions Burger & Grill in Oranjestad: night-time street-grill menu with 50+ items, cart and WhatsApp ordering — Spanish-first, Aruba-priced in AWG.",
+    tagline:
+      "Aruba street-grill e-commerce — menu, cart and WhatsApp checkout for a night-only grill spot.",
+    tags: ["Next.js", "Tailwind", "WhatsApp Order", "AWG Pricing"],
+    category: "web",
+    year: "2026",
+    accent: "from-yellow-300 to-amber-500",
+    image: "/projects/minons.svg",
+    live: "https://www.minonsaruba.com/",
+    client: "Minions Burger & Grill Aruba",
+    location: "Seroe Blanco 54, Oranjestad, Aruba — 7PM till late",
+    role: "Designer + Full-Stack Developer — menu, ordering flows, deploy",
+    platform: ["Restaurant website", "Menu + cart + WhatsApp"],
+    archiveOnly: true,
+    overview: [
+      "Minions Burger & Grill is a night-only street-grill spot in Oranjestad (Seroe Blanco 54, open 7PM till late, +297 743 9894). I built their full-screen website as a bilingual, mobile-first menu and ordering surface: hero with Minion mascots and grill photography, marquee ticker, and direct WhatsApp ordering.",
+      "The menu covers 8 categories — patacón, hamburguesa, parrilla, wrap, cabimera, basket, pepitos & hot dogs, arepas — with 50+ items, AWG pricing (16–55 AWG), image modals, and a cart that builds a WhatsApp message for pickup or delivery with location sharing.",
+    ],
+    features: [
+      { title: "Full menu system", desc: "Patacón / Hamburguesa / Parrilla / Wrap / Cabimera / Basket / Pepitos & Hot Dogs / Arepas — 50+ SKUs with AWG tiers (S/M/L/Mega) and crisp photography." },
+      { title: "Cart → WhatsApp checkout", desc: "Add to cart, quantity stepper, optional papas fritas add-on, cart total, and Enviar por WhatsApp that pre-fills the order + pickup/delivery choice." },
+      { title: "Night-grill branding", desc: "Minion mascots, fire imagery, Spanish copy (INICIO / EL GRILL / ENCUÉNTRANOS), Seroe Blanco address and 7PM–3AM hours throughout." },
+      { title: "Mobile-first ordering", desc: "Sticky cart (TU PEDIDO / HACER PEDIDO →), drawer modals for every item with version pickers, and wa.me/2977439894 handoff." },
+      { title: "Trust & findability", desc: "Google Maps GXGH+44 link, Seroe Blanco 54 address, and 2019-founded street-food story (Cap. 01 / El Parche / Hecho en Aruba)." },
+    ],
+    flow: [
+      "Browse menu → pick patacón/hamburguesa/parrilla etc. → choose version (Pollo/Steak/Mix) → add to cart",
+      "Adjust quantity / add papas fritas → view TU PEDIDO total in AWG",
+      "Choose Para recoger / Delivery → Enviar por WhatsApp → location sharing prompt",
+      "Restaurant confirms on WhatsApp and prepares the grill order for the night",
+    ],
+    outcome:
+      "A night-grill e-commerce surface turning Instagram discovery into WhatsApp orders — menu, pricing, cart and location in one thumb-friendly site, live at minonsaruba.com.",
+  },
 ];
 
 export const stack = [

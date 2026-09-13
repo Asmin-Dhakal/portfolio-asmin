@@ -22,11 +22,11 @@ function Line({ children, delay = 0 }: { children: React.ReactNode; delay?: numb
   );
 }
 
-const stats: [number, string, string][] = [
-  [5, "", "live projects"],
-  [2, "", "apps on Play Store"],
-  [4, "", "languages spoken"],
-  [1, " hr", "avg. response"],
+const stats: [number, string, string, string | null][] = [
+  [9, "", "live projects", "/projects"],
+  [2, "", "apps on Play Store", "/projects"],
+  [4, "", "languages spoken", null],
+  [1, " hr", "avg. response", null],
 ];
 
 function Stat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
@@ -177,14 +177,19 @@ export default function Hero() {
           transition={{ delay: 1.1, duration: 0.8, ease }}
           className="grid grid-cols-2 border-2 border-ink bg-cream shadow-[5px_5px_0_#0d1b2a] md:grid-cols-4"
         >
-          {stats.map(([v, s, l], i) => (
-            <div
-              key={l}
-              className={`px-5 py-4 ${i > 0 ? "border-l-2 border-ink" : ""} ${i === 2 ? "max-md:border-l-0 max-md:border-t-2 max-md:border-ink" : ""} ${i === 3 ? "max-md:border-t-2 max-md:border-ink" : ""}`}
-            >
-              <Stat value={v} suffix={s} label={l} />
-            </div>
-          ))}
+          {stats.map(([v, s, l, href], i) => {
+            const inner = <Stat value={v} suffix={s} label={l} />;
+            const cls = `px-5 py-4 ${i > 0 ? "border-l-2 border-ink" : ""} ${i === 2 ? "max-md:border-l-0 max-md:border-t-2 max-md:border-ink" : ""} ${i === 3 ? "max-md:border-t-2 max-md:border-ink" : ""}`;
+            return href ? (
+              <a key={l} href={href} className={`${cls} block transition hover:bg-sun/20`}>
+                {inner}
+              </a>
+            ) : (
+              <div key={l} className={cls}>
+                {inner}
+              </div>
+            );
+          })}
         </motion.dl>
       </div>
     </section>
