@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Cursor from "@/components/Cursor";
 import ContactModal from "@/components/ContactModal";
 import { site } from "@/data/site";
+import { Analytics } from "@vercel/analytics/next";
 
 const display = Instrument_Serif({
   variable: "--font-display",
@@ -68,6 +69,7 @@ export default function RootLayout({
         <ContactModal />
         <Navbar />
         {children}
+        <Analytics />
       </body>
     </html>
   );
