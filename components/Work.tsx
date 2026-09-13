@@ -113,9 +113,9 @@ export default function Work() {
 
   return (
     <section id="work" ref={sectionRef} className="relative scroll-mt-24" style={{ height: "420vh" }}>
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pb-12 md:pb-16">
-        {/* header row */}
-        <div id="work-head" className="mx-auto w-full max-w-7xl scroll-mt-24 px-5 pt-20 md:pt-24">
+      <div className="sticky top-0 flex h-screen flex-col overflow-hidden pb-12 md:pb-16">
+        {/* header row — stable: not part of the centered group */}
+        <div id="work-head" className="mx-auto w-full max-w-7xl scroll-mt-[84px] px-5 pt-20 md:pt-24">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <Reveal>
@@ -158,8 +158,9 @@ export default function Work() {
           </div>
         </div>
 
-        {/* horizontal track */}
-        <motion.div ref={trackRef} style={{ x }} className="mt-6 flex w-max gap-5 px-5 md:gap-7 md:px-[8vw]">
+        {/* track + progress center in the remaining space */}
+        <div className="flex flex-1 flex-col justify-center">
+          <motion.div ref={trackRef} style={{ x }} className="mt-6 flex w-max gap-5 px-5 md:gap-7 md:px-[8vw]">
           {visible.map((p, i) => (
             <Panel key={p.slug} slug={p.slug} index={i} total={count} />
           ))}
@@ -182,16 +183,17 @@ export default function Work() {
               </span>
             </div>
           </a>
-        </motion.div>
+          </motion.div>
 
-        {/* progress */}
-        <div className="mx-auto mt-6 w-full max-w-7xl px-5">
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-[11px] tracking-widest text-ink-soft uppercase">drag the page</span>
-            <div className="h-[3px] flex-1 overflow-hidden rounded-full bg-ink/10">
-              <motion.div style={{ width: bar }} className="h-full bg-ember" />
+          {/* progress */}
+          <div className="mx-auto mt-6 w-full max-w-7xl px-5">
+            <div className="flex items-center gap-4">
+              <span className="font-mono text-[11px] tracking-widest text-ink-soft uppercase">drag the page</span>
+              <div className="h-[3px] flex-1 overflow-hidden rounded-full bg-ink/10">
+                <motion.div style={{ width: bar }} className="h-full bg-ember" />
+              </div>
+              <span className="font-mono text-[11px] text-ink-soft">{Math.round(pos * 100)}%</span>
             </div>
-            <span className="font-mono text-[11px] text-ink-soft">{Math.round(pos * 100)}%</span>
           </div>
         </div>
       </div>

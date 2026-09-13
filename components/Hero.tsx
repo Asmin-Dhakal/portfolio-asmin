@@ -136,7 +136,7 @@ export default function Hero() {
               className="flex flex-wrap items-center gap-3"
             >
               <a
-                href="#work"
+                href="#work-head"
                 className="group inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-6 py-3 font-mono text-sm font-bold tracking-widest text-cream uppercase shadow-[4px_4px_0_#415a77] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#415a77]"
               >
                 See live work

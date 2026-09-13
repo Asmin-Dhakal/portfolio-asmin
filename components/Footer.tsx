@@ -24,7 +24,7 @@ function useKathmanduTime() {
 }
 
 const nav = [
-  { label: "Work", href: "#work" },
+  { label: "Work", href: "#work-head" },
   { label: "Services", href: "#services" },
   { label: "Story", href: "#story" },
   { label: "Contact", href: "#contact" },

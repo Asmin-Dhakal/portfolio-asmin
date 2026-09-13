@@ -8,7 +8,10 @@ export default function SmoothScroll() {
   const lenisRef = useRef<Lenis | null>(null);
   const pathname = usePathname();
   const firstLoad = useRef(true);
-  const correctTimer = useRef<number>(0);
+
+  // Pinned Work section links (#work and #work-head) share one landing.
+  const isWorkHash = (hash: string | null) =>
+    hash === "#work" || hash === "#work-head";
 
   // Snappy easing for anchor jumps so they actually arrive (the free
   // lerp tail feels endless and stops short).
@@ -17,35 +20,13 @@ export default function SmoothScroll() {
     easing: (t: number) => 1 - Math.pow(1 - t, 4),
   } as const;
 
-  // Land on the Work header itself (inside the pinned area) with normal
-  // navbar clearance. Verifies AFTER each glide finishes (checks spaced past
-  // the 1.4s animation — checking mid-flight would restart it forever) and
-  // corrects for layout shifts. Aborts the moment the user scrolls.
+  // With the header decoupled from the track, its position is stable
+  // the moment the section pins — one glide is enough.
   const landOnWork = () => {
     const lenis = lenisRef.current;
-    if (!lenis) return;
-    let tries = 0;
-    let idle = true;
-    const stop = () => {
-      idle = false;
-      window.clearTimeout(correctTimer.current);
-    };
-    window.addEventListener("wheel", stop, { once: true, passive: true });
-    window.addEventListener("touchmove", stop, { once: true, passive: true });
-    window.addEventListener("keydown", stop, { once: true });
-    const attempt = () => {
-      if (!idle || tries >= 3) return;
-      tries += 1;
-      const target = document.querySelector("#work-head") ?? document.querySelector("#work");
-      if (!target || !lenisRef.current) return;
-      const y =
-        (target as HTMLElement).getBoundingClientRect().top + window.scrollY - 76;
-      if (tries > 1 && Math.abs(window.scrollY - y) < 8) return; // settled
-      lenisRef.current.scrollTo(target as HTMLElement, { offset: -76, ...JUMP });
-      correctTimer.current = window.setTimeout(attempt, 2100);
-    };
-    window.clearTimeout(correctTimer.current);
-    attempt();
+    const el = document.querySelector("#work-head") ?? document.querySelector("#work");
+    if (!lenis || !el) return;
+    lenis.scrollTo(el as HTMLElement, { offset: 0, ...JUMP });
   };
 
   // Init Lenis once
@@ -70,7 +51,7 @@ export default function SmoothScroll() {
       const el = document.querySelector(hash);
       if (!el) return;
       e.preventDefault();
-      if (hash === "#work") landOnWork();
+      if (isWorkHash(hash)) landOnWork();
       else lenis.scrollTo(el as HTMLElement, { offset: -70, ...JUMP });
     };
     document.addEventListener("click", onClick);
@@ -96,7 +77,7 @@ export default function SmoothScroll() {
       const t = setTimeout(() => {
         const el = document.querySelector(hash);
         if (el) {
-          if (hash === "#work") {
+          if (isWorkHash(hash)) {
             landOnWork();
           } else {
             lenisRef.current?.scrollTo(el as HTMLElement, { offset: -70, immediate: true });

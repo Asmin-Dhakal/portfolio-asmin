@@ -53,11 +53,18 @@ export default function ContactModal() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `Project inquiry — ${form.type} (${form.name})`;
-    const body = `Hi Asmin,\n\n${form.message}\n\n— ${form.name} (${form.email})`;
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const res = await fetch("/api/inquiries", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error ? JSON.stringify(data.error) : "Failed to send. Try again.");
+      return;
+    }
     setSent(true);
   };
 
@@ -109,10 +116,11 @@ export default function ContactModal() {
                     ✓
                   </motion.div>
                   <div className="font-cond mt-4 text-3xl tracking-wide uppercase">
-                    Opening your mail app
+                    Sent — I&apos;ll reply soon
                   </div>
                   <p className="mx-auto mt-2 max-w-xs text-sm leading-6 text-ink-soft">
-                    Your message is composed — just hit send. Prefer Fiverr?{" "}
+                    Your inquiry is saved. I usually reply within an hour at{" "}
+                    <span className="font-mono text-xs font-bold">{site.email}</span>. Prefer Fiverr?{" "}
                     <a href={site.fiverr} target="_blank" rel="noreferrer" className="font-bold text-ember underline">
                       Order there ↗
                     </a>

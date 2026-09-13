@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <Marquee />
       <Work />
+      <Marquee />
       <Services />
       <Deploy />
       <Experience />
