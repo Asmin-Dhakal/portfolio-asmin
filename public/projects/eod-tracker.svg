@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#ea580c"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0v48" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect x="70" y="90" width="220" height="56" rx="28" fill="#0d1b2a"/>
+  <text x="180" y="127" font-family="monospace" font-size="26" font-weight="bold" fill="#f2f3f1" text-anchor="middle">EOD • HR</text>
+  <text x="70" y="300" font-family="Arial, sans-serif" font-size="110" font-weight="bold" fill="#0d1b2a">EOD</text>
+  <text x="70" y="400" font-family="Arial, sans-serif" font-size="110" font-weight="bold" fill="#f2f3f1">Tracker</text>
+  <text x="70" y="460" font-family="monospace" font-size="28" fill="#0d1b2a">Bikram Sambat • Kathmandu time</text>
+  <g font-family="monospace" font-size="18" font-weight="bold">
+    <rect x="800" y="140" width="300" height="56" rx="28" fill="#0d1b2a"/>
+    <text x="950" y="176" text-anchor="middle" fill="#f2f3f1">09:47 — CHECK IN ✓</text>
+    <rect x="800" y="210" width="300" height="56" rx="28" fill="#f2f3f1"/>
+    <text x="950" y="246" text-anchor="middle" fill="#0d1b2a">13:02 — LUNCH ⏸</text>
+    <rect x="800" y="280" width="300" height="56" rx="28" fill="#0d1b2a"/>
+    <text x="950" y="316" text-anchor="middle" fill="#f59e0b">17:23 — OVERTIME +23m</text>
+    <rect x="800" y="360" width="300" height="56" rx="28" fill="#f2f3f1" stroke="#0d1b2a" stroke-width="3" stroke-dasharray="10 8"/>
+    <text x="950" y="396" text-anchor="middle" fill="#0d1b2a">Baisakh 2082 → CSV</text>
+  </g>
+</svg>

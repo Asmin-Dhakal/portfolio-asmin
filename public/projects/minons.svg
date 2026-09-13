@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#facc15"/>
+      <stop offset="1" stop-color="#ea580c"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0v48" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect x="70" y="90" width="260" height="56" rx="28" fill="#0d1b2a"/>
+  <text x="200" y="127" font-family="monospace" font-size="26" font-weight="bold" fill="#facc15" text-anchor="middle">MINIONS • ARUBA</text>
+  <text x="70" y="310" font-family="Arial, sans-serif" font-size="110" font-weight="bold" fill="#0d1b2a">Minions</text>
+  <text x="70" y="400" font-family="Arial, sans-serif" font-size="44" font-weight="bold" fill="#0d1b2a" opacity="0.9">Burger &amp; Grill</text>
+  <text x="70" y="460" font-family="monospace" font-size="28" fill="#0d1b2a">Seroe Blanco 54 • 7PM till late • AWG</text>
+  <g font-family="monospace" font-size="16" font-weight="bold">
+    <rect x="800" y="160" width="300" height="52" rx="26" fill="#0d1b2a"/>
+    <text x="950" y="193" text-anchor="middle" fill="#facc15">PATACÓN 16–30 AWG</text>
+    <rect x="800" y="226" width="300" height="52" rx="26" fill="#f2f3f1"/>
+    <text x="950" y="259" text-anchor="middle" fill="#0d1b2a">HAMBURGUESA 17–30 AWG</text>
+    <rect x="800" y="292" width="300" height="52" rx="26" fill="#0d1b2a"/>
+    <text x="950" y="325" text-anchor="middle" fill="#f2f3f1">PARRILLA • WRAP • AREPA</text>
+    <rect x="800" y="358" width="300" height="52" rx="26" fill="#f2f3f1" stroke="#0d1b2a" stroke-width="3"/>
+    <text x="950" y="391" text-anchor="middle" fill="#0d1b2a">CART → WHATSAPP →</text>
+  </g>
+</svg>
