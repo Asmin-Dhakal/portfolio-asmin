@@ -25,7 +25,7 @@ function Panel({
 }) {
   const p = projects.find((x) => x.slug === slug)!;
   return (
-    <article className="group relative w-[84vw] shrink-0 overflow-hidden rounded-2xl border-2 border-ink bg-ink text-cream shadow-[8px_8px_0_#0d1b2a33] md:w-[58vw]">
+    <article className="group relative w-[84vw] shrink-0 snap-center snap-always overflow-hidden rounded-2xl border-2 border-ink bg-ink text-cream shadow-[8px_8px_0_#0d1b2a33] md:w-[58vw] md:snap-align-none">
       <Link href={`/projects/${p.slug}`} className="relative block h-[30vh] overflow-hidden md:h-[34vh]">
         <Image
           src={p.image}
@@ -83,8 +83,18 @@ export default function Work() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [range, setRange] = useState(0);
   const [pos, setPos] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktop) return;
     const measure = () => {
       const el = trackRef.current;
       if (!el) return;
@@ -97,7 +107,20 @@ export default function Work() {
       clearTimeout(t);
       window.removeEventListener("resize", measure);
     };
-  }, []);
+  }, [isDesktop]);
+
+  // Mobile uses a native swipe carousel, so derive progress from scrollLeft.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el || isDesktop) return;
+    const onScroll = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      setPos(max > 0 ? el.scrollLeft / max : 0);
+    };
+    onScroll();
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [isDesktop]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -105,23 +128,25 @@ export default function Work() {
   });
   const x = useTransform(scrollYProgress, [0, 1], [0, -range]);
   const bar = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  useMotionValueEvent(scrollYProgress, "change", (v) => setPos(v));
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (isDesktop) setPos(v);
+  });
 
   const visible = projects.filter((p) => !p.archiveOnly);
   const count = visible.length;
   const active = Math.min(count - 1, Math.floor(pos * count));
 
   return (
-    <section id="work" ref={sectionRef} className="relative scroll-mt-24" style={{ height: "420vh" }}>
-      <div className="sticky top-0 flex h-screen flex-col overflow-hidden pb-12 md:pb-16">
+    <section id="work" ref={sectionRef} className="relative scroll-mt-24 md:h-[420vh]">
+      <div className="flex flex-col overflow-hidden pb-10 md:sticky md:top-0 md:h-screen md:pb-16">
         {/* header row — stable: not part of the centered group */}
-        <div id="work-head" className="mx-auto w-full max-w-7xl scroll-mt-[84px] px-5 pt-20 md:pt-24">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
+        <div id="work-head" className="mx-auto w-full max-w-7xl scroll-mt-[84px] px-5 pt-16 md:pt-24">
+          <div className="flex items-end justify-between gap-4">
+            <div className="min-w-0">
               <Reveal>
                 <div className="mb-3 flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] text-ember uppercase">
                   <span className="inline-block h-px w-10 bg-ember" />
-                  Chapter 01 — keep scrolling
+                  Chapter 01 — selected work
                 </div>
               </Reveal>
               <Reveal>
@@ -130,10 +155,10 @@ export default function Work() {
                 </h2>
               </Reveal>
             </div>
-            <div className="flex min-h-[7.5rem] flex-col items-end justify-start gap-3">
-              <div className="font-display text-6xl text-ink/15 md:text-7xl">
+            <div className="flex min-h-[5.25rem] shrink-0 flex-col items-end justify-start gap-3 md:min-h-[7.5rem]">
+              <div className="font-display text-4xl text-ink/15 md:text-7xl">
                 0{active + 1}
-                <span className="text-3xl md:text-4xl">/{String(count).padStart(2, "0")}</span>
+                <span className="text-2xl md:text-4xl">/{String(count).padStart(2, "0")}</span>
               </div>
               <AnimatePresence>
                 {pos > 0.88 && (
@@ -160,14 +185,18 @@ export default function Work() {
 
         {/* track + progress center in the remaining space */}
         <div className="flex flex-1 flex-col justify-center">
-          <motion.div ref={trackRef} style={{ x }} className="mt-6 flex w-max gap-5 px-5 md:gap-7 md:px-[8vw]">
+          <motion.div
+            ref={trackRef}
+            style={isDesktop ? { x } : undefined}
+            className="no-scrollbar mt-6 flex w-full snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-3 md:w-max md:snap-none md:gap-7 md:overflow-visible md:px-[8vw] md:pb-0"
+          >
           {visible.map((p, i) => (
             <Panel key={p.slug} slug={p.slug} index={i} total={count} />
           ))}
           {/* end CTA card */}
           <a
             href="#contact"
-            className="group flex w-[84vw] shrink-0 flex-col justify-between rounded-2xl border-2 border-dashed border-ink/50 bg-sun/15 p-8 transition hover:border-ink hover:bg-sun/30 md:w-[40vw]"
+            className="group flex w-[84vw] shrink-0 snap-center snap-always flex-col justify-between rounded-2xl border-2 border-dashed border-ink/50 bg-sun/15 p-8 transition hover:border-ink hover:bg-sun/30 md:w-[40vw] md:snap-align-none"
           >
             <div className="font-display text-5xl md:text-6xl">
               Yours
@@ -186,11 +215,15 @@ export default function Work() {
           </motion.div>
 
           {/* progress */}
-          <div className="mx-auto mt-6 w-full max-w-7xl px-5">
+          <div className="mx-auto mt-5 w-full max-w-7xl px-5 md:mt-6">
             <div className="flex items-center gap-4">
-              <span className="font-mono text-[11px] tracking-widest text-ink-soft uppercase">drag the page</span>
+              <span className="hidden font-mono text-[11px] tracking-widest text-ink-soft uppercase md:inline">drag the page</span>
+              <span className="font-mono text-[11px] tracking-widest text-ink-soft uppercase md:hidden">swipe</span>
               <div className="h-[3px] flex-1 overflow-hidden rounded-full bg-ink/10">
-                <motion.div style={{ width: bar }} className="h-full bg-ember" />
+                <motion.div
+                  style={{ width: isDesktop ? bar : `${pos * 100}%` }}
+                  className="h-full bg-ember"
+                />
               </div>
               <span className="font-mono text-[11px] text-ink-soft">{Math.round(pos * 100)}%</span>
             </div>
