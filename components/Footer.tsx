@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { ArrowUp } from "lucide-react";
 import { site } from "@/data/site";
 
@@ -35,9 +36,9 @@ export default function Footer() {
 
   return (
     <footer className="border-t-2 border-ink bg-paper">
-      <div className="mx-auto max-w-7xl px-5 pt-12 pb-6">
-        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div>
+      <div className="mx-auto max-w-7xl px-5 pt-12 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="col-span-2 md:col-span-1">
             <a href="#top" className="flex items-center gap-2.5">
               <span className="grid size-10 -rotate-3 place-items-center rounded-md border-2 border-ink bg-sun font-display text-2xl text-ink shadow-[2px_2px_0_#0d1b2a]">
                 A
@@ -67,9 +68,9 @@ export default function Footer() {
                 </li>
               ))}
               <li>
-                <a href="/projects" className="transition hover:text-ember hover:underline hover:decoration-2 hover:underline-offset-4">
+                <Link href="/projects" className="transition hover:text-ember hover:underline hover:decoration-2 hover:underline-offset-4">
                   All projects
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -83,7 +84,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <div className="font-mono text-[11px] tracking-[0.25em] text-ink-soft uppercase">Contact</div>
             <a href={`mailto:${site.email}`} className="mt-3 block font-bold break-all transition hover:text-ember">
               {site.email}

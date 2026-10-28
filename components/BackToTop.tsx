@@ -20,7 +20,7 @@ export default function BackToTop() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 12 }}
-          className="fixed right-5 bottom-5 z-50 grid size-11 place-items-center rounded-full bg-lime-300 text-zinc-950 shadow-xl transition hover:bg-lime-200"
+          className="fixed right-[max(1.25rem,env(safe-area-inset-right))] bottom-[max(1.25rem,env(safe-area-inset-bottom))] z-30 grid size-11 place-items-center rounded-full border-2 border-cream/20 bg-ink text-cream shadow-xl transition hover:bg-ember"
           aria-label="Back to top"
         >
           <ArrowUp className="size-5" />
