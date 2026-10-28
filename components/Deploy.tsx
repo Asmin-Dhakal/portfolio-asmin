@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
 import { GitBranch, Container, Rocket, Radar, Terminal } from "lucide-react";
 import { Reveal, SectionHeading } from "./ui";
 
@@ -41,29 +41,25 @@ const steps = [
 export default function Deploy() {
   const [active, setActive] = useState(0);
   const [cycle, setCycle] = useState(0);
+  const [auto, setAuto] = useState(true);
   const secRef = useRef<HTMLElement>(null);
   const inView = useInView(secRef, { amount: 0.35 });
+  const reduce = useReducedMotion();
 
-  // loop runs only while the section is on screen; re-entering restarts at Push
+  // Auto-advance only while the section is visible; tapping a stage pauses it.
   useEffect(() => {
-    if (inView) {
-      setActive(0);
-      setCycle((c) => c + 1);
-    }
-  }, [inView]);
-
-  useEffect(() => {
-    if (!inView) return;
+    if (!inView || !auto || reduce) return;
     const id = setInterval(() => {
       setActive((a) => (a + 1) % steps.length);
       setCycle((c) => c + 1);
     }, DURATION);
     return () => clearInterval(id);
-  }, [inView, cycle]);
+  }, [inView, cycle, auto, reduce]);
 
   const step = steps[active];
   const pick = (i: number) => {
     setActive(i);
+    setAuto(false);
     setCycle((c) => c + 1);
   };
 
@@ -173,7 +169,7 @@ export default function Deploy() {
                   <span>
                     <span className="block text-sm font-bold">{s.title}</span>
                     <span className="font-mono text-[10px] tracking-widest text-ink-soft uppercase">
-                      {now ? "running…" : done ? "done" : "tap to view"}
+                      {now ? (auto ? "running…" : "selected") : done ? "done" : "tap to view"}
                     </span>
                   </span>
                 </button>

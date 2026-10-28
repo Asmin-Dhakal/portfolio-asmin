@@ -54,11 +54,10 @@ function TiltCard({
 }
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 44, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 44 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] as const },
   }),
 };

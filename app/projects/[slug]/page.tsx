@@ -50,7 +50,7 @@ export default async function ProjectPage({
         </div>
       </Reveal>
       <Reveal y={28}>
-        <h1 className="font-cond max-w-3xl text-5xl leading-[0.98] tracking-wide uppercase md:text-7xl">{p.title}</h1>
+        <h1 className="font-cond max-w-3xl text-[2.6rem] leading-[0.98] tracking-wide break-words uppercase sm:text-5xl md:text-7xl">{p.title}</h1>
       </Reveal>
       <Reveal delay={0.08}>
         <p className="mt-4 max-w-2xl text-lg leading-8 text-ink-soft">{p.short}</p>
@@ -88,7 +88,7 @@ export default async function ProjectPage({
         </ClipImage>
       </div>
 
-      <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {[
           { icon: User, k: "Client", v: p.client },
           { icon: MapPin, k: "Location", v: p.location },
@@ -99,7 +99,7 @@ export default async function ProjectPage({
             <div className="h-full rounded-xl border-2 border-ink bg-cream p-4 shadow-[3px_3px_0_#0d1b2a]">
               <m.icon className="mb-2 size-5 text-ember" />
               <div className="font-mono text-[10px] tracking-[0.2em] text-ink-soft uppercase">{m.k}</div>
-              <div className="mt-1 text-sm font-bold">{m.v}</div>
+              <div className="mt-1 text-sm font-bold break-words">{m.v}</div>
             </div>
           </Reveal>
         ))}

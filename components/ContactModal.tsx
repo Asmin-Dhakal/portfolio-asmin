@@ -10,7 +10,7 @@ export function openContactModal() {
 }
 
 const inputCls =
-  "w-full rounded-xl border-2 border-ink bg-cream px-4 py-2.5 text-sm font-medium outline-none transition placeholder:text-ink/35 focus:bg-white focus:shadow-[3px_3px_0_#0d1b2a]";
+  "w-full rounded-xl border-2 border-ink bg-cream px-4 py-2.5 text-base font-medium outline-none transition placeholder:text-ink/35 focus:bg-white focus:shadow-[3px_3px_0_#0d1b2a] sm:text-sm";
 
 export default function ContactModal() {
   const [open, setOpen] = useState(false);
@@ -30,13 +30,20 @@ export default function ContactModal() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     if (open) {
+      const root = document.documentElement;
+      const body = document.body;
+      const rootBefore = root.style.overflow;
+      const bodyBefore = body.style.overflow;
       window.addEventListener("keydown", onKey);
-      document.documentElement.style.overflow = "hidden";
+      root.style.overflow = "hidden";
+      body.style.overflow = "hidden";
+      return () => {
+        window.removeEventListener("keydown", onKey);
+        root.style.overflow = rootBefore;
+        body.style.overflow = bodyBefore;
+      };
     }
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.documentElement.style.overflow = "";
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, [open ]);
 
   const copy = async () => {
@@ -89,9 +96,9 @@ export default function ContactModal() {
             exit={{ opacity: 0, scale: 0.95, y: 16 }}
             transition={{ type: "spring", stiffness: 320, damping: 26 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative my-8 w-full max-w-lg overflow-hidden rounded-2xl border-2 border-ink bg-paper shadow-[8px_8px_0_#0d1b2a]"
+            className="relative max-h-[calc(100dvh-2rem)] w-full max-w-lg overflow-y-auto overscroll-contain rounded-2xl border-2 border-ink bg-paper shadow-[8px_8px_0_#0d1b2a]"
           >
-            <div className="flex items-center justify-between border-b-2 border-ink bg-sun/30 px-6 py-4">
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b-2 border-ink bg-sun px-6 py-4">
               <div className="font-mono text-[11px] font-bold tracking-[0.25em] uppercase">
                 Start a project
               </div>

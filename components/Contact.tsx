@@ -112,7 +112,7 @@ export default function Contact() {
               whileHover={{ scale: 1.05, rotate: -1 }}
               whileTap={{ scale: 0.96 }}
               href={`mailto:${site.email}`}
-              className="inline-flex items-center gap-2.5 rounded-full bg-sun px-8 py-4 font-mono text-sm font-bold tracking-widest text-ink uppercase shadow-[5px_5px_0_#e0e1dd33] transition"
+              className="inline-flex max-w-full items-center gap-2.5 rounded-full bg-sun px-6 py-4 font-mono text-[13px] font-bold tracking-widest break-all text-ink uppercase shadow-[5px_5px_0_#e0e1dd33] transition sm:px-8 sm:text-sm"
             >
               <Mail className="size-4" /> {site.email}
             </motion.a>

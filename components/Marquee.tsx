@@ -78,14 +78,14 @@ export default function Marquee() {
               </h2>
             </div>
             <p className="max-w-xs font-mono text-xs leading-6 text-ink-soft">
-              Every skill below is tied to something live — hover the proof.
+              Every skill below is tied to something live. Tap a drawer to switch stacks.
             </p>
           </div>
         </Reveal>
 
         {/* tabs */}
         <Reveal delay={0.05}>
-          <div className="flex gap-2 overflow-x-auto pb-1">
+          <div className="no-scrollbar flex gap-2 overflow-x-auto pb-1">
             {groups.map((g) => (
               <button
                 key={g.id}

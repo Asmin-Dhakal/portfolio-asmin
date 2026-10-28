@@ -89,11 +89,11 @@ export default function Hero() {
         <motion.div
           animate={{ x: [0, -50, 30, 0], y: [0, 40, -20, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[10%] left-[4%] size-[22rem] rounded-full bg-sun/30 blur-[100px]"
+          className="absolute bottom-[10%] left-[4%] hidden size-[22rem] rounded-full bg-sun/30 blur-[100px] sm:block"
         />
         <motion.div
           style={{ x: sx, y: sy, marginLeft: -240, marginTop: -240 }}
-          className="absolute top-0 left-0 size-[30rem] rounded-full bg-sun/25 blur-[100px]"
+          className="absolute top-0 left-0 hidden size-[30rem] rounded-full bg-sun/25 blur-[100px] md:block"
         />
       </div>
       <motion.div style={{ opacity: fade }} className="mx-auto max-w-7xl px-5 pt-8 md:pt-12">
@@ -133,18 +133,18 @@ export default function Hero() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8, ease }}
-              className="flex flex-wrap items-center gap-3"
+              className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center"
             >
               <a
                 href="#work-head"
-                className="group inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-6 py-3 font-mono text-sm font-bold tracking-widest text-cream uppercase shadow-[4px_4px_0_#415a77] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#415a77]"
+                className="group inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink bg-ink px-6 py-3 font-mono text-sm font-bold tracking-widest text-cream uppercase shadow-[4px_4px_0_#415a77] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#415a77]"
               >
                 See live work
                 <ArrowDown className="size-4 transition group-hover:translate-y-1" />
               </a>
               <a
                 href={`mailto:${site.email}`}
-                className="group inline-flex items-center gap-2 rounded-full border-2 border-ink bg-cream px-6 py-3 font-mono text-sm font-bold tracking-widest uppercase shadow-[4px_4px_0_#0d1b2a] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#0d1b2a]"
+                className="group inline-flex max-w-full items-center justify-center gap-2 rounded-full border-2 border-ink bg-cream px-5 py-3 font-mono text-[13px] font-bold tracking-widest break-all uppercase shadow-[4px_4px_0_#0d1b2a] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#0d1b2a] sm:px-6 sm:text-sm"
               >
                 {site.email}
                 <ArrowUpRight className="size-4 transition group-hover:rotate-45" />
